@@ -53,10 +53,55 @@ $gutter: percentage($gutter-width / $row-max-width);
     margin-left: $gutter;
     @include box-sizing(border-box);
 
+    &.right-column {
+        float: none;
+        margin-left: auto;
+    }
+
+    &.center-column {
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &.left-column {
+        float: none;
+        margin-right: auto;
+    }
+
     @media screen and (max-width: $mobile-start) {
         float: none;
         margin-left: auto;
         margin-right: auto;
+    }
+}
+
+@mixin column($columns:$columns, $position: false) {
+    @if ($position == right) {
+        @extend .column;
+        width: columns($columns);
+        float: none;
+        margin-left: auto;
+    } 
+
+    @else if ($position == center){
+        @extend .column;
+        width: columns($columns);
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    } 
+
+    @else if ($position == left) {
+        @extend .column;
+        width: columns($columns);
+        float: none;
+        margin-right: auto;
+    }
+
+    @else {
+        width: columns($columns);
+        @extend .column;
     }
 }
 
@@ -68,9 +113,4 @@ $gutter: percentage($gutter-width / $row-max-width);
         margin-left: auto;
         margin-right: auto;
     }
-}
-
-@mixin column($columns) {
-    width: columns($columns);
-    @extend .column;
 }
