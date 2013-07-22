@@ -1,0 +1,76 @@
+// Grid Settings
+$row-max-width      : 1400px !default;
+$min-device-width   : 320px;
+$gutter-width       : 20px !default;
+$cols               : 16 !default;
+
+$mobile-start       : 600px;
+
+// Grid init
+$default-float  : left;
+$switch-float   : right;
+
+$gutter: percentage($gutter-width / $row-max-width);
+
+@function oneCol($hybrid-grid: false) {
+    @return (100% - ($gutter * ($cols - 1))) / $cols;
+}
+
+@function columns($num){
+    @return (oneCol() * $num) + ($gutter * ($num - 1));
+}
+
+.row {
+    width: 100%;
+    max-width: $row-max-width;
+    min-width: $min-device-width;
+    margin: 0 auto;
+    @include clearfix;
+
+    > *:first-child {
+        margin-left: 0px;
+
+        @media screen and (max-width: $mobile-start) {
+            margin-left: auto;
+        }
+    }
+}
+
+@mixin row {
+    @extend .row;
+}
+
+@for $i from 1 through $cols {
+    .col-#{($i)} {
+        width: columns($i);
+    }
+}
+
+.column {
+    float: $default-float;
+    position: relative;
+    min-height: 1px;
+    margin-left: $gutter;
+    @include box-sizing(border-box);
+
+    @media screen and (max-width: $mobile-start) {
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.one-column {
+    @extend .column;
+
+    .row &{
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@mixin column($columns) {
+    width: columns($columns);
+    @extend .column;
+}
