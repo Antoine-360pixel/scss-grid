@@ -46,12 +46,20 @@ $gutter: percentage($gutter-width / $row-max-width);
     }
 }
 
-.column {
+@mixin column-default {
     float: $default-float;
     position: relative;
     min-height: 1px;
     margin-left: $gutter;
     @include box-sizing(border-box);
+}
+
+.column {
+    @include column-default;
+
+    &:first-child {
+        margin-left: 0px;
+    }
 
     &.right-column {
         float: none;
@@ -63,10 +71,14 @@ $gutter: percentage($gutter-width / $row-max-width);
         margin-left: auto;
         margin-right: auto;
     }
-
+    
     &.left-column {
         float: none;
         margin-right: auto;
+    }
+
+    &.col-#{$cols} {
+        margin-left: auto;
     }
 
     @media screen and (max-width: $mobile-start) {
@@ -77,40 +89,59 @@ $gutter: percentage($gutter-width / $row-max-width);
 }
 
 @mixin column($columns:$columns, $position: false) {
+    position: relative;
+    min-height: 1px;
+    width: columns($columns);
+
+    &:first-child {
+        margin-left: 0px;
+    }
+
+    @media screen and (max-width: $mobile-start) {
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     @if ($position == right) {
-        @extend .column;
-        width: columns($columns);
         float: none;
         margin-left: auto;
     } 
 
     @else if ($position == center){
-        @extend .column;
-        width: columns($columns);
         float: none;
         margin-left: auto;
         margin-right: auto;
     } 
 
     @else if ($position == left) {
-        @extend .column;
-        width: columns($columns);
         float: none;
         margin-right: auto;
+    } 
+    
+    @else if ($columns == $cols) {
+        margin-left: auto;
     }
-
+    
     @else {
-        width: columns($columns);
-        @extend .column;
+        @include column-default;
     }
 }
 
 .one-column {
-    @extend .column;
+    @include column-default;
+    
+    + .one-column {
+        margin-left: auto;
+    }
 
     .row &{
         float: none;
         margin-left: auto;
         margin-right: auto;
     }
+}
+
+@mixin one-column {
+    @extend .one-column;
 }
