@@ -13,6 +13,7 @@ sass-grid
   <section class="col-3"></section>
   <section class="col-3"></section>
 </main>
+```
 
 ```scss
 @import "sq_grid";
@@ -20,5 +21,7 @@ sass-grid
 .box {
   @extend col(value);
 }
+```
 
 ## License
+No license ! Enjoy
