@@ -19,7 +19,7 @@ $gutter: percentage($grid_gutter / $grid_max_width);
   position: relative;
   max-width: $grid_max_width;
   margin: 0 auto;
-  padding: $gutter;
+  padding: 0;
 
   &:after {
     content: "";
@@ -33,23 +33,15 @@ $gutter: percentage($grid_gutter / $grid_max_width);
   position: relative;
   width: columns($val);
   min-height: 1;
-  margin: $gutter 0 $gutter 0;
-  padding: 0 $gutter;
+  margin: 0;
+  padding: $gutter;
   box-sizing: border-box;
-
-  &:first-child {
-    margin-left: $gutter;
-  }
 
   @if $val < $cols {
     @media only screen and (max-width: $breakpoint) {
       float: none;
       width: 100%;
-      margin: $gutter $gutter 0 $gutter;
-      
-      &:last-child {
-        margin-bottom: $gutter;
-      }
+      padding: $gutter;
     }
   }
 }
