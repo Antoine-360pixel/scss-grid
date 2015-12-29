@@ -8,7 +8,7 @@ This is a light grid scss, customizable and very easy to use.
 Using **bower**:
 
 ```
-bower install sq-grid
+bower i sq-grid --save
 ```
 
 ## Usage
