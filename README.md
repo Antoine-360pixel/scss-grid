@@ -38,7 +38,7 @@ With html:
 With Scss:
 ```scss
 .box {
-  @extend col(3);
+  @include col(3);
 }
 ```
 
