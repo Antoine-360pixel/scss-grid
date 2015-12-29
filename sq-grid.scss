@@ -1,7 +1,8 @@
-/* ***
-  version : "v2.0.0"
-  https://github.com/Antoine-360pixel/sass-grid 
-*** */
+//  Author: Vallée Antoine
+//  github: https://github.com/Antoine-360pixel/scss-grid
+//  Licensed under a MIT License
+//  Version:
+//  2.0.1
 
 $cols: 6 !default;
 $grid_max_width: 1400px !default;
@@ -20,7 +21,7 @@ $gutter: percentage($grid_gutter / $grid_max_width);
   width: 100%;
   margin: 0 auto;
   padding: 0;
-  
+
   &:after {
     content: "";
     display: table;
