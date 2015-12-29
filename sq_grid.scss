@@ -1,103 +1,55 @@
 /* ***
-  version : "1.0.0"
+  version : "2.0.0"
   https://github.com/Antoine-360pixel/sass-grid 
 *** */
 
-// Grid Settings
-$row_max_width  : 1720px !default;
-$gutter_width   : 20px !default;
-$cols           : 6 !default;
-$mobile_start   : 1300px;
+$cols: 6;
+$grid_max_width: 1400px;
+$grid_gutter: 25px;
 
-// Grid init
-$default_float  : left;
-$switch_float   : right;
-
-$gutter: percentage($gutter_width / $row_max_width);
-
-@function row_max_width() {
-  @if ($row_max_width == 100%) {
-    @return (100% - 2 * $gutter_width);
-    @warn "Assuming #{$gutter_width} to be in %";
-  }
-  @else {
-    @return $row_max_width;
-    @warn "Assuming #{$gutter_width} to be in pixels";
-  }
-}
-
-@function oneCol() {
-  @return (100% - ($gutter * ($cols - 1))) / $cols;
-}
+$gutter: percentage($grid_gutter / $grid_max_width);
 
 @function columns($num){
-  @return (oneCol() * $num) + ($gutter * ($num - 1));
+  @return ((100% - ($gutter * $cols + 2)) / $cols) * $num + ($gutter * ($num - 1));
 }
 
-@mixin row ($option: false){
+@mixin row {
+  position: relative;
+  max-width: $grid_max_width;
   width: 100%;
   margin: 0 auto;
-  @extend .clearfix;
-
-  @if ($option == false) {
-    max-width: row_max_width();
-  }
+  padding: 0;
+  @include clearfix;
 }
 
-@mixin col-default {
-  float: $default_float;
+@mixin col($val) {
+  @if $val != $cols {
+    float: left;
+  } @else {
+    float: none;
+  }
+
   position: relative;
-  min-height: 1px;
-  margin-left: $gutter;
-  margin-bottom: 50px;
+  width: columns($val);
+  min-height: 1;
+  margin: 0;
+  margin: $gutter $gutter $gutter 0;
   box-sizing: border-box;
 
   &:first-child {
-    margin-left: 0px;
-  }
-}
-
-@mixin col(  $columns, $position: false) {
-
-  width: columns($columns);
-  @include col-default;
-
-  @if ($columns == $cols) {
-    margin-left: auto;
+    margin-left: $gutter;
   }
 
-  @if ($position == right or $position == left or $position == center) {
-
-    $opposite: opposite-position($position);
-
-    @if ($position == right or $position == left) {
+  @if $val < $cols {
+    @include max-screen($medium_screen) {
       float: none;
-      margin-#{$opposite}: auto;
-    }
-
-    @if ($position == center) {
-      float: none;
-      margin-left: auto;
-      margin-right: auto;
-
-      &:first-child {
-        margin-left: auto;
+      width: 100%;
+      margin: $gutter $gutter 0 $gutter;
+      
+      &:last-child {
+        margin-bottom: $gutter;
       }
     }
-  }
-}
-
-@mixin one-col {
-  @include col-default;
-
-  + .one-col {
-    margin-left: auto;
-  }
-
-  .fluid-row & {
-    float: none;
-    margin-left: auto;
-    margin-right: auto;
   }
 }
 
@@ -108,11 +60,5 @@ $gutter: percentage($gutter_width / $row_max_width);
 @for $f from 1 through $cols {
   .col-#{$f} {
     @include col($f);
-  }
-}
-
-[class^="col-"] {
-  @media screen and (max-width: 1024px) {
-    @include col(6);
   }
 }

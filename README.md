@@ -1,25 +1,35 @@
 sass-grid
 =========
 
-## Current Version : v1.0
+This is a little light grid scss.
 
 ## Usage
 - no compass require
-- just init variables
-
-##Example 
-```html
-<main class="fluid-row">
-  <section class="col-3"></section>
-  <section class="col-3"></section>
-</main>
-```
 
 ```scss
 @import "sq_grid";
 
+// grid init
+$cols: 6;
+$grid_max_width: 1400px;
+$grid_gutter: 25px;
+
+```
+
+##Example
+
+With html:
+```html
+<main class="fluid-row">
+  <div class="col-3"></div>
+  <div class="col-3"></div>
+</main>
+```
+
+With Scss:
+```scss
 .box {
-  @extend col(value);
+  @extend col(3);
 }
 ```
 
