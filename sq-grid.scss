@@ -1,11 +1,12 @@
 /* ***
-  version : "2.0.0"
+  version : "v2.0.0"
   https://github.com/Antoine-360pixel/sass-grid 
 *** */
 
-$cols: 6;
-$grid_max_width: 1400px;
-$grid_gutter: 25px;
+$cols: 6 !default;
+$grid_max_width: 1400px !default;
+$grid_gutter: 25px !default;
+$breakpoint: 1024px !default;
 
 $gutter: percentage($grid_gutter / $grid_max_width);
 
@@ -19,7 +20,12 @@ $gutter: percentage($grid_gutter / $grid_max_width);
   width: 100%;
   margin: 0 auto;
   padding: 0;
-  @include clearfix;
+  
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
 
 @mixin col($val) {
@@ -41,7 +47,7 @@ $gutter: percentage($grid_gutter / $grid_max_width);
   }
 
   @if $val < $cols {
-    @include max-screen($medium_screen) {
+    @media only screen and (max-width: $breakpoint) {
       float: none;
       width: 100%;
       margin: $gutter $gutter 0 $gutter;

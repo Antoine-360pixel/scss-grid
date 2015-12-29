@@ -1,18 +1,27 @@
 sass-grid
 =========
 
-This is a little light grid scss.
+This is a light grid scss, customizable and very easy to use.
+
+### How to install:
+
+Using **bower**:
+
+```
+bower install sq-grid
+```
 
 ## Usage
 - no compass require
 
 ```scss
-@import "sq_grid";
+@import "sq-grid";
 
 // grid init
 $cols: 6;
 $grid_max_width: 1400px;
 $grid_gutter: 25px;
+$breakpoint: 1024px;
 
 ```
 
